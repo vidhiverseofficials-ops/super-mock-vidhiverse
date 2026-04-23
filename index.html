@@ -143,7 +143,7 @@ const CORRECT = 1;
 const WRONG = -0.25;
 
 const QUESTIONS = [
-  {id:1,section:"Legal Aptitude",q:"Article 21 includes which of the following?",opts:["Right to livelihood","Right to privacy","Right to die with dignity ","All of the above"],ans:3,exp:"Article 21 has been judicially expanded to include right to livelihood, privacy, and even passive euthanasia (right to die with dignity).",trap:"Students often exclude 'right to die' — but passive euthanasia is recognized by the Supreme Court."},
+  {id:1,section:"Legal Aptitude",q:"Article 21 includes which of the following?",opts:["Right to livelihood","Right to privacy","Right to die with dignity","All of the above"],ans:3,exp:"Article 21 has been judicially expanded to include right to livelihood, privacy, and even passive euthanasia (right to die with dignity).",trap:"Students often exclude 'right to die' — but passive euthanasia is recognized by the Supreme Court."},
   {id:2,section:"Legal Aptitude",q:"Which case recognized Right to Privacy as a Fundamental Right?",opts:["Golaknath","Kesavananda Bharati","Puttaswamy","Maneka Gandhi"],ans:2,exp:"Justice K.S. Puttaswamy v. Union of India (2017) — 9-judge bench unanimously held privacy as a fundamental right under Article 21.",trap:"Maneka Gandhi also expanded Article 21 but did not recognize privacy."},
   {id:3,section:"Legal Aptitude",q:"Under Indian Contract Act, acceptance must be:",opts:["Absolute and unqualified","Conditional","Silent","Implied only"],ans:0,exp:"Section 7 of the Indian Contract Act requires acceptance to be absolute and unqualified. Any conditional acceptance is a counter-offer.",trap:"'Implied' sounds plausible but the rule requires absolute acceptance."},
   {id:4,section:"Legal Aptitude",q:"A threatens B to sign a contract. The contract is:",opts:["Void","Voidable","Illegal","Valid"],ans:1,exp:"Coercion under Section 15 ICA makes a contract voidable at the option of the party whose consent was coerced.",trap:"Many students incorrectly mark 'void'. Coercion → voidable, not void."},
@@ -437,7 +437,7 @@ function renderTest(){
   <div class="page">
     <div class="header">
       <div style="display:flex;align-items:center;gap:16px">
-        <div class="logo">ProExam<span>™</span></div>
+        <div class="logo">VidhiVerse<span>™</span></div>
         <div class="header-user">${userName}</div>
       </div>
       <div class="header-right">
@@ -579,7 +579,7 @@ function renderResults(){
   return`
   <div class="page">
     <div class="header">
-      <div class="logo">ProExam<span>™</span> Law Mock Test</div>
+      <div class="logo">VidhiVerse<span>™</span> Law Mock Test</div>
       <div style="font-size:13px;color:#64748b">${userName} &nbsp;•&nbsp; ${userEmail}</div>
     </div>
     <div class="results-wrap">
@@ -671,7 +671,7 @@ function renderResults(){
           }).join("")}
         `:""}
       </div>
-      <div class="footer-note">ProExam™ Law Mock Test — ${userName} (${userEmail})</div>
+      <div class="footer-note">VidhiVerse™ Law Mock Test — ${userName} (${userEmail})</div>
     </div>
   </div>`;
 }
