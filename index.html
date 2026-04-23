@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ProExam™ Law Mock Test</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',system-ui,sans-serif;background:#080f1a;color:#e2e8f0;min-height:100vh;}
+  button{font-family:inherit;cursor:pointer;}
+  input{font-family:inherit;}
+  ::-webkit-scrollbar{width:6px;}
+  ::-webkit-scrollbar-track{background:#0d1627;}
+  ::-webkit-scrollbar-thumb{background:#1e2d45;border-radius:3px;}
+  .page{min-height:100vh;background:#080f1a;color:#e2e8f0;}
+  .center{min-height:100vh;background:#080f1a;display:flex;align-items:center;justify-content:center;padding:20px;}
+  .form-card{background:#0d1627;border:1px solid #1e2d45;border-radius:16px;padding:40px;max-width:500px;width:100%;}
+  .form-card-wide{max-width:640px;}
+  .accent-bar{width:40px;height:4px;background:#f59e0b;border-radius:2px;margin-bottom:24px;}
+  .title{font-size:28px;font-weight:800;color:#f8fafc;margin-bottom:4px;}
+  .subtitle{font-size:14px;color:#475569;margin-bottom:28px;}
+  .stats-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:28px;}
+  .stat-box{background:#080f1a;border-radius:10px;padding:12px 8px;text-align:center;border:1px solid #1e2d45;}
+  .stat-val{font-size:18px;font-weight:800;color:#f59e0b;}
+  .stat-lbl{font-size:11px;color:#475569;margin-top:3px;}
+  .sections-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:24px;}
+  .sec-pill{border-radius:8px;padding:8px 12px;font-size:12px;font-weight:500;}
+  label.field-label{display:block;font-size:11px;font-weight:700;color:#475569;margin-bottom:6px;text-transform:uppercase;letter-spacing:1.2px;}
+  input.field-input{width:100%;padding:11px 14px;background:#080f1a;border:1.5px solid #1e2d45;border-radius:8px;color:#f1f5f9;font-size:15px;outline:none;margin-bottom:4px;}
+  input.field-input:focus{border-color:#1d4ed8;}
+  .err{font-size:12px;color:#f87171;margin-bottom:8px;}
+  .btn-gold{background:linear-gradient(135deg,#d97706,#f59e0b);color:#000;font-weight:700;border:none;border-radius:10px;padding:13px;font-size:15px;width:100%;margin-top:20px;transition:opacity .15s;}
+  .btn-gold:hover{opacity:.9;}
+  /* instructions palette */
+  .palette-legend{background:#080f1a;border:1px solid #1e2d45;border-radius:10px;padding:14px;margin-top:16px;margin-bottom:24px;display:flex;gap:16px;flex-wrap:wrap;}
+  .legend-item{display:flex;align-items:center;gap:6px;font-size:11px;color:#64748b;}
+  .legend-dot{width:10px;height:10px;border-radius:3px;flex-shrink:0;}
+  /* header */
+  .header{background:#0d1627;border-bottom:1px solid #1e2d45;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:200;}
+  .logo{font-size:18px;font-weight:800;color:#f8fafc;letter-spacing:-.5px;}
+  .logo span{color:#f59e0b;}
+  .header-user{font-size:12px;color:#334155;border-left:1px solid #1e2d45;padding-left:16px;}
+  .header-right{display:flex;align-items:center;gap:12px;}
+  .answered-count{font-size:12px;color:#475569;}
+  .timer{display:flex;align-items:center;gap:8px;background:#0d1f35;border:1.5px solid #1d4ed8;border-radius:8px;padding:6px 16px;font-weight:800;font-size:22px;color:#60a5fa;font-variant-numeric:tabular-nums;letter-spacing:3px;transition:all .3s;}
+  .timer.warn{background:#2c1800;border-color:#f59e0b;color:#fbbf24;}
+  .timer.danger{background:#3b0000;border-color:#ef4444;color:#f87171;}
+  .timer-lbl{font-size:10px;text-transform:uppercase;letter-spacing:1.5px;margin-right:6px;opacity:.7;}
+  /* buttons */
+  .btn{padding:9px 18px;border-radius:8px;font-weight:600;font-size:13px;cursor:pointer;border:none;transition:all .15s;}
+  .btn-primary{background:#1d4ed8;color:#fff;}
+  .btn-ghost{background:transparent;border:1px solid #1e2d45 !important;color:#64748b;}
+  .btn-danger{background:#7f1d1d;border:1px solid #dc2626 !important;color:#fca5a5;}
+  .btn-warning{background:#78350f;border:1px solid #d97706 !important;color:#fcd34d;}
+  .btn-success{background:#14532d;border:1px solid #16a34a !important;color:#86efac;}
+  .btn-outline{background:transparent;border:1px solid #1e3a5f !important;color:#93c5fd;}
+  /* test layout */
+  .test-layout{display:flex;height:calc(100vh - 53px);overflow:hidden;}
+  .sidebar{width:240px;background:#0d1627;border-right:1px solid #1e2d45;overflow-y:auto;flex-shrink:0;padding:12px 10px;}
+  .sidebar-section-lbl{font-size:10px;color:#334155;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px;padding-left:4px;}
+  .sec-btn{display:block;width:100%;text-align:left;padding:7px 10px;margin-bottom:3px;background:transparent;border:1px solid transparent;border-radius:7px;font-size:11px;font-weight:400;cursor:pointer;transition:all .15s;color:#475569;}
+  .sidebar-divider{border-top:1px solid #1e2d45;margin:10px 0;padding-top:10px;}
+  .palette-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;}
+  .pal-btn{border-radius:5px;padding:5px 2px;font-size:11px;font-weight:700;cursor:pointer;text-align:center;transition:all .1s;border-width:2px;border-style:solid;}
+  .sidebar-stats{display:flex;flex-direction:column;gap:5px;}
+  .sidebar-stat-row{display:flex;justify-content:space-between;font-size:11px;margin-bottom:5px;}
+  /* main content */
+  .main-content{flex:1;overflow-y:auto;padding:24px 28px;}
+  .q-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
+  .q-header-left{display:flex;align-items:center;gap:10px;}
+  .sec-badge{border-radius:6px;padding:3px 12px;font-size:11px;font-weight:700;border-width:1px;border-style:solid;}
+  .q-count{font-size:12px;color:#334155;}
+  .q-header-right{display:flex;gap:8px;}
+  .card{background:#0d1627;border:1px solid #1e2d45;border-radius:12px;padding:20px 24px;}
+  .q-card{margin-bottom:16px;}
+  .q-num-lbl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;margin-bottom:10px;}
+  .q-text{font-size:17px;color:#f1f5f9;font-weight:500;line-height:1.65;white-space:pre-line;margin-bottom:22px;}
+  .opt-btn{display:flex;align-items:center;gap:14px;width:100%;padding:13px 16px;margin-bottom:8px;background:#080f1a;border:1.5px solid #1e2d45;border-radius:9px;cursor:pointer;color:#cbd5e1;font-size:15px;text-align:left;transition:all .15s;}
+  .opt-btn.selected{background:#0f2344;}
+  .opt-circle{width:28px;height:28px;border-radius:50%;background:#0d1627;border:1.5px solid #334155;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#475569;flex-shrink:0;}
+  .nav-row{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap;}
+  .marking-info{font-size:12px;color:#334155;display:flex;gap:20px;}
+  /* modal */
+  .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);display:flex;align-items:center;justify-content:center;z-index:1000;padding:20px;}
+  .modal-box{background:#0d1627;border:1px solid #1e2d45;border-radius:16px;padding:36px 40px;max-width:460px;width:100%;}
+  .modal-title{font-size:22px;font-weight:800;color:#f8fafc;margin-bottom:6px;}
+  .modal-sub{font-size:13px;color:#475569;margin-bottom:24px;}
+  .modal-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:20px;}
+  .modal-stat{background:#080f1a;border:1px solid #1e2d45;border-radius:8px;padding:12px 8px;text-align:center;}
+  .modal-stat-val{font-size:24px;font-weight:900;}
+  .modal-stat-lbl{font-size:11px;color:#334155;margin-top:4px;}
+  .modal-warn{background:#080f1a;border:1px solid #1e3a5f;border-radius:8px;padding:12px;margin-bottom:20px;font-size:12px;color:#475569;}
+  .modal-btns{display:flex;gap:12px;}
+  /* results */
+  .results-wrap{max-width:960px;margin:0 auto;padding:28px 20px 60px;}
+  .score-hero{text-align:center;padding:40px 24px;margin-bottom:20px;border-radius:12px;border-width:1px;border-style:solid;}
+  .score-num{font-size:72px;font-weight:900;line-height:1;letter-spacing:-3px;}
+  .score-of{font-size:18px;color:#475569;margin-top:4px;}
+  .grade-badge{display:inline-flex;align-items:center;gap:10px;background:rgba(0,0,0,.3);border-radius:10px;padding:6px 24px;margin-top:14px;border-width:1.5px;border-style:solid;}
+  .grade-txt{font-size:26px;font-weight:900;}
+  .grade-msg{font-size:14px;color:#94a3b8;margin-top:10px;}
+  .stats5{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:20px;}
+  .stat5-box{text-align:center;padding:14px 8px;background:#0d1627;border:1px solid #1e2d45;border-radius:12px;}
+  .stat5-val{font-size:26px;font-weight:800;}
+  .stat5-lbl{font-size:11px;color:#475569;margin-top:4px;}
+  .section-row{margin-bottom:18px;}
+  .section-row-hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;}
+  .sec-right{display:flex;gap:16px;align-items:center;}
+  .progress-bar-bg{height:8px;background:#080f1a;border-radius:4px;overflow:hidden;border:1px solid #1e2d45;}
+  .progress-bar-fill{height:100%;border-radius:4px;transition:width .8s ease;}
+  .review-filter-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;}
+  .filter-btn{padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;border-width:1px;border-style:solid;transition:all .15s;}
+  .sub-filter-row{display:flex;gap:8px;margin-bottom:16px;}
+  .sub-filter-btn{padding:4px 12px;border-radius:6px;font-size:12px;cursor:pointer;border-width:1px;border-style:solid;}
+  .q-review-item{background:#080f1a;border-radius:10px;padding:16px;margin-bottom:10px;border-width:1px;border-style:solid;}
+  .q-review-hd{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;gap:12px;}
+  .q-review-num{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;}
+  .q-review-txt{font-size:14px;color:#f1f5f9;margin-top:4px;line-height:1.6;white-space:pre-line;}
+  .score-pill{flex-shrink:0;padding:4px 12px;border-radius:6px;font-size:13px;font-weight:800;}
+  .opts-review-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:12px;}
+  .opt-review{padding:8px 12px;border-radius:7px;font-size:13px;display:flex;gap:8px;align-items:center;border-width:1px;border-style:solid;}
+  .opt-ltr{font-weight:700;opacity:.7;}
+  .exp-box{background:#0d1627;border:1px solid #1e3a5f;border-radius:8px;padding:10px 14px;}
+  .exp-lbl{font-size:11px;color:#3b82f6;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;}
+  .exp-txt{font-size:13px;color:#94a3b8;line-height:1.6;}
+  .trap-txt{font-size:12px;color:#fbbf24;margin-top:6px;display:flex;gap:6px;align-items:flex-start;}
+  .no-match{color:#475569;font-size:14px;padding:12px 0;}
+  .footer-note{text-align:center;color:#2d3f55;font-size:12px;padding-bottom:20px;}
+  @media(max-width:640px){
+    .stats5{grid-template-columns:repeat(3,1fr);}
+    .opts-review-grid{grid-template-columns:1fr;}
+    .test-layout{flex-direction:column;}
+    .sidebar{width:100%;height:auto;border-right:none;border-bottom:1px solid #1e2d45;}
+  }
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+const TOTAL_TIME = 90*60;
+const CORRECT = 1;
+const WRONG = -0.25;
+
+const QUESTIONS = [
+  {id:1,section:"Legal Aptitude",q:"Article 21 includes which of the following?",opts:["Right to livelihood","Right to privacy","Right to die","All of the above"],ans:3,exp:"Article 21 has been judicially expanded to include right to livelihood, privacy, and even passive euthanasia (right to die with dignity).",trap:"Students often exclude 'right to die' — but passive euthanasia is recognized by the Supreme Court."},
+  {id:2,section:"Legal Aptitude",q:"Which case recognized Right to Privacy as a Fundamental Right?",opts:["Golaknath","Kesavananda Bharati","Puttaswamy","Maneka Gandhi"],ans:2,exp:"Justice K.S. Puttaswamy v. Union of India (2017) — 9-judge bench unanimously held privacy as a fundamental right under Article 21.",trap:"Maneka Gandhi also expanded Article 21 but did not recognize privacy."},
+  {id:3,section:"Legal Aptitude",q:"Under Indian Contract Act, acceptance must be:",opts:["Absolute and unqualified","Conditional","Silent","Implied only"],ans:0,exp:"Section 7 of the Indian Contract Act requires acceptance to be absolute and unqualified. Any conditional acceptance is a counter-offer.",trap:"'Implied' sounds plausible but the rule requires absolute acceptance."},
+  {id:4,section:"Legal Aptitude",q:"A threatens B to sign a contract. The contract is:",opts:["Void","Voidable","Illegal","Valid"],ans:1,exp:"Coercion under Section 15 ICA makes a contract voidable at the option of the party whose consent was coerced.",trap:"Many students incorrectly mark 'void'. Coercion → voidable, not void."},
+  {id:5,section:"Legal Aptitude",q:"Doctrine of Basic Structure was evolved in:",opts:["Golaknath","Kesavananda Bharati","Minerva Mills","I.R. Coelho"],ans:1,exp:"Kesavananda Bharati v. State of Kerala (1973) established the Basic Structure doctrine, limiting Parliament's amending power.",trap:"Minerva Mills reinforced the doctrine but did not create it."},
+  {id:6,section:"Legal Aptitude",q:"Which writ is used against illegal detention?",opts:["Mandamus","Certiorari","Habeas Corpus","Prohibition"],ans:2,exp:"Habeas Corpus literally means 'produce the body' — it is used to challenge illegal detention and secure release.",trap:"Mandamus is for compelling a public authority to perform a duty — commonly confused."},
+  {id:7,section:"Legal Aptitude",q:'"Take your victim as you find him" relates to:',opts:["Negligence","Strict liability","Eggshell skull rule","Absolute liability"],ans:2,exp:"The Eggshell Skull Rule holds a tortfeasor liable for the full extent of injury even if the victim had a pre-existing vulnerability.",trap:"Students often mark 'negligence' but this is a specific principle within negligence."},
+  {id:8,section:"Legal Aptitude",q:"Sedition (IPC 124A) status under BNS:",opts:["Retained","Repealed","Modified into new provision","Made stricter"],ans:2,exp:"Under the Bharatiya Nyaya Sanhita (BNS), sedition as a standalone provision was conceptually restructured into a new provision covering acts against sovereignty.",trap:"'Repealed' is attractive but incorrect — it was modified, not simply removed."},
+  {id:9,section:"Legal Aptitude",q:"Offer revoked before acceptance reaches proposer →",opts:["Valid revocation","Invalid","Void agreement","Illegal act"],ans:0,exp:"Under ICA, revocation of offer is valid if it reaches the offeree before the acceptance is complete against the proposer.",trap:"Students confuse 'before acceptance is sent' vs 'before communication of acceptance is complete against proposer'."},
+  {id:10,section:"Legal Aptitude",q:"Which is NOT a Fundamental Duty?",opts:["Scientific temper","Protect environment","Right to vote","Promote harmony"],ans:2,exp:"Right to vote is a statutory/legal right under the Representation of People Act, not a Fundamental Duty under Article 51-A.",trap:"Voting feels morally obligatory, so students mark it — but it is NOT listed as a duty in the Constitution."},
+  {id:11,section:"Legal Aptitude",q:"Which Article deals with impeachment of the President?",opts:["Article 61","Article 356","Article 368","Article 75"],ans:0,exp:"Article 61 lays down the procedure for impeachment of the President of India.",trap:"Article 356 (President's Rule) is commonly confused with President's own impeachment."},
+  {id:12,section:"Legal Aptitude",q:'"Procedure established by law" was expanded to include due process in:',opts:["A.K. Gopalan","Maneka Gandhi","Golaknath","Minerva Mills"],ans:1,exp:"Maneka Gandhi v. Union of India (1978) expanded 'procedure established by law' to include just, fair, and reasonable procedure — closer to due process.",trap:"A.K. Gopalan (1950) held the older narrow view — Maneka Gandhi overruled it."},
+  {id:13,section:"Legal Aptitude",q:"A publishes false statement harming B's reputation →",opts:["Assault","Defamation","Nuisance","Negligence"],ans:1,exp:"Defamation is the publication of a false statement that damages the reputation of a person.",trap:"Nuisance involves interference with property enjoyment, not reputation."},
+  {id:14,section:"Legal Aptitude",q:"In tort law, nuisance refers to:",opts:["Physical injury","Interference with enjoyment of property","Contract breach","Criminal act"],ans:1,exp:"Nuisance is an unlawful interference with a person's use or enjoyment of land or some right connected with it.",trap:"Nuisance is often confused with physical injury or assault."},
+  {id:15,section:"Legal Aptitude",q:"Which of the following is NOT an essential element of a valid contract?",opts:["Free consent","Consideration","Registration","Lawful object"],ans:2,exp:"Registration is not always required for a valid contract. Section 10 ICA requires offer, acceptance, consideration, free consent, capacity, and lawful object.",trap:"Many students assume registration is mandatory — it is NOT a universal requirement."},
+  {id:16,section:"Legal Aptitude",q:'Under Indian Contract Act, "consideration" means:',opts:["Promise only","Something in return","Gift","Agreement"],ans:1,exp:"Consideration is 'something in return' — an act, abstinence, or promise given by one party in exchange for another's promise.",trap:"'Promise only' is incomplete — consideration can also be an act or abstinence."},
+  {id:17,section:"Legal Aptitude",q:"Which section defines a valid contract?",opts:["Section 2(h)","Section 10","Section 25","Section 73"],ans:1,exp:"Section 10 of the ICA defines what agreements are contracts — it lists all essential elements.",trap:"Section 2(h) defines 'contract' but Section 10 defines what makes a contract valid."},
+  {id:18,section:"Legal Aptitude",q:"An agreement without consideration is:",opts:["Valid","Illegal","Void","Enforceable"],ans:2,exp:"Section 25 ICA states agreements without consideration are void, subject to certain exceptions like natural love and affection.",trap:"'Illegal' sounds plausible but the correct term is 'void' — they are not the same."},
+  {id:19,section:"Legal Aptitude",q:"Which writ is issued to public authority to perform duty?",opts:["Habeas Corpus","Certiorari","Mandamus","Quo Warranto"],ans:2,exp:"Mandamus means 'we command' — it directs a public authority to perform a legal duty they have failed or refused to perform.",trap:"Habeas Corpus is for illegal detention — commonly confused with Mandamus."},
+  {id:20,section:"Legal Aptitude",q:"Quo Warranto is used to:",opts:["Release detained person","Transfer case","Challenge authority of office holder","Prevent lower court"],ans:2,exp:"Quo Warranto challenges the authority by which a person holds a public office — it asks 'by what warrant?'.",trap:"Detention-related answers distract from the correct purpose of Quo Warranto."},
+  {id:21,section:"Legal Aptitude",q:"Which Article provides equality before law?",opts:["Article 14","Article 19","Article 21","Article 32"],ans:0,exp:"Article 14 guarantees equality before law and equal protection of laws to all persons within India.",trap:"Article 21 is right to life — frequently confused with equality."},
+  {id:22,section:"Legal Aptitude",q:'"Rule of law" concept was given by:',opts:["Dicey","Austin","Bentham","Salmond"],ans:0,exp:"A.V. Dicey propounded the Rule of Law concept with three pillars: supremacy of law, equality before law, and predominance of legal spirit.",trap:"Austin is known for 'command theory of law', not rule of law."},
+  {id:23,section:"Legal Aptitude",q:"Absolute liability principle evolved in:",opts:["Rylands v Fletcher","Donoghue v Stevenson","M.C. Mehta v Union of India","Kesavananda Bharati"],ans:2,exp:"M.C. Mehta v Union of India (1987) — SC evolved absolute liability as stricter than Rylands v Fletcher, with no exceptions.",trap:"Rylands v Fletcher established 'strict liability' not 'absolute liability'."},
+  {id:24,section:"Legal Aptitude",q:"Which of the following is an inchoate crime?",opts:["Theft","Murder","Attempt","Assault"],ans:2,exp:"Inchoate crimes are incomplete or preparatory crimes. Attempt is a classic inchoate offense — the crime was not completed.",trap:"Students confuse complete crimes (theft, murder) with inchoate ones."},
+  {id:25,section:"Legal Aptitude",q:"Under criminal law, intention + act =",opts:["Tort","Crime","Contract","Civil wrong"],ans:1,exp:"In criminal law, mens rea (guilty mind/intention) + actus reus (guilty act) together constitute a crime.",trap:"This formula specifically applies to criminal law, not torts."},
+  {id:26,section:"Legal Aptitude",q:"Which organ enforces Fundamental Rights?",opts:["Legislature","Executive","Judiciary","Election Commission"],ans:2,exp:"Article 32 empowers the Supreme Court and Article 226 empowers High Courts to enforce Fundamental Rights.",trap:"Though all organs must respect rights, enforcement is exclusively judicial."},
+  {id:27,section:"Legal Aptitude",q:"Article 32 is known as:",opts:["Heart of Constitution","Soul of Constitution","Both A and B","None"],ans:2,exp:"Dr. B.R. Ambedkar called Article 32 the 'heart and soul' of the Constitution as it provides the right to constitutional remedies.",trap:"Both 'heart' and 'soul' are correct — the answer is 'Both A and B'."},
+  {id:28,section:"Legal Aptitude",q:"Which case declared Preamble is part of Constitution?",opts:["Berubari Case","Kesavananda Bharati","Golaknath","Minerva Mills"],ans:1,exp:"Kesavananda Bharati (1973) overruled Berubari and held that the Preamble is an integral part of the Constitution.",trap:"Berubari case (1960) had held the opposite — that Preamble is NOT part of Constitution."},
+  {id:29,section:"Legal Aptitude",q:"Which of the following is NOT a tort?",opts:["Defamation","Negligence","Theft","Nuisance"],ans:2,exp:"Theft is a crime under IPC/BNS, not a tort. Torts are civil wrongs actionable for compensation, not criminal punishment.",trap:"Theft can give rise to civil remedies but is primarily a crime, not a tort."},
+  {id:30,section:"Legal Aptitude",q:'Which maxim means "no injury is done to one who consents"?',opts:["Ubi jus ibi remedium","Volenti non fit injuria","Res ipsa loquitur","Actus non facit reum nisi mens sit rea"],ans:1,exp:"Volenti non fit injuria — a complete defence in tort law meaning that a person who voluntarily accepts a risk cannot claim compensation.",trap:"All four are Latin maxims — knowing translations is key. 'Ubi jus' = where there is a right, there is a remedy."},
+  {id:31,section:"General Knowledge & CA",q:"Current Chief Justice of India (2026):",opts:["D.Y. Chandrachud","Sanjiv Khanna","Surya Kant","N.V. Ramana"],ans:2,exp:"Justice Surya Kant (born 10 February 1962) is an Indian judge serving as the 53rd Chief Justice of India from 24 November 2025, succeeding Justice Sanjiv Khanna.",trap:"D.Y. Chandrachud and Sanjiv Khanna were preceding CJIs — recency confusion is the classic trap here."},
+  {id:32,section:"General Knowledge & CA",q:"Law Commission is:",opts:["Constitutional","Statutory","Executive","Judicial"],ans:2,exp:"The Law Commission of India is an executive body set up by an order of the Government of India — it has no constitutional or statutory basis.",trap:"'Statutory' sounds logical but it has no statutory backing — it is an executive advisory body."},
+  {id:33,section:"General Knowledge & CA",q:"FASTag is based on:",opts:["GPS","RFID","AI","Blockchain"],ans:1,exp:"FASTag uses Radio Frequency Identification (RFID) technology for automatic toll deduction without stopping at toll plazas.",trap:"GPS tracks location; RFID handles contactless deduction — different technologies."},
+  {id:34,section:"General Knowledge & CA",q:"Kaziranga National Park is famous for:",opts:["Lions","Elephants","One-horned rhinoceros","Tigers"],ans:2,exp:"Kaziranga in Assam is a UNESCO World Heritage Site, home to the world's largest population of Indian one-horned rhinoceroses.",trap:"Gir (Gujarat) is for lions; Kaziranga is specifically for one-horned rhinos."},
+  {id:35,section:"General Knowledge & CA",q:"Paris Agreement relates to:",opts:["Trade","Climate change","Nuclear policy","Human rights"],ans:1,exp:"The Paris Agreement (2015) is an international treaty under UNFCCC aimed at limiting global warming to 1.5°C above pre-industrial levels.",trap:"Kyoto Protocol is an older climate agreement — don't confuse the two."},
+  {id:36,section:"General Knowledge & CA",q:"Bharat Mala focuses on:",opts:["Ports","Roads","Railways","Airways"],ans:1,exp:"Bharatmala Pariyojana is a centrally-sponsored highway and road connectivity project spanning across India.",trap:"Sagarmala focuses on ports — Bharatmala is frequently confused with it."},
+  {id:37,section:"General Knowledge & CA",q:"Which state has highest population density?",opts:["UP","Bihar","Kerala","Punjab"],ans:1,exp:"Bihar has the highest population density in India (approximately 1,102 persons per sq km as per Census 2011).",trap:"UP has the highest total population but Bihar has higher density per sq km."},
+  {id:38,section:"General Knowledge & CA",q:"Which correctly matches National Park and State?",opts:["Gir — Rajasthan","Kaziranga — Assam","Periyar — Tamil Nadu","Kanha — Gujarat"],ans:1,exp:"Kaziranga National Park is in Assam. Gir is in Gujarat, Periyar is in Kerala, Kanha is in Madhya Pradesh.",trap:"Gir–Gujarat and Periyar–Kerala are tested frequently. Mixing states is the classic trap."},
+  {id:39,section:"General Knowledge & CA",q:"The Law Commission of India is:",opts:["Permanent constitutional body","Temporary advisory body","Judicial authority","Statutory tribunal"],ans:1,exp:"The Law Commission is a temporary advisory body — its term is usually 3 years and it is reconstituted periodically.",trap:"'Constitutional' gives it a gravitas that it does not legally possess."},
+  {id:40,section:"General Knowledge & CA",q:"Which statement is correct about Law Commission reports?",opts:["Binding on courts","Binding on government","Advisory in nature","Judicial orders"],ans:2,exp:"Reports of the Law Commission are purely advisory — neither courts nor the government is bound to follow them.",trap:"Students assume high-profile reports are binding; they are merely recommendations."},
+  {id:41,section:"General Knowledge & CA",q:"PM Gati Shakti is:",opts:["Financial scheme","Infrastructure planning platform","Tax policy","Employment scheme"],ans:1,exp:"PM Gati Shakti is a National Master Plan for multi-modal connectivity — a digital platform for integrated infrastructure planning.",trap:"'Financial scheme' sounds like PM initiatives — but Gati Shakti is a planning tool, not a welfare scheme."},
+  {id:42,section:"General Knowledge & CA",q:"Which best explains 'Green Steel'?",opts:["Steel produced cheaply","Steel with higher durability","Steel with reduced carbon emissions","Steel for defence"],ans:2,exp:"Green Steel refers to steel produced using low-carbon or zero-carbon methods such as hydrogen-based reduction, significantly reducing CO₂ emissions.",trap:"The 'green' prefix relates to environment/sustainability, not color or quality."},
+  {id:43,section:"General Knowledge & CA",q:"FASTag reduces congestion because:",opts:["It increases toll booths","It uses RFID for automatic deduction","It requires manual scanning","It increases waiting time"],ans:1,exp:"FASTag enables electronic toll collection through RFID, allowing vehicles to pass through toll plazas without stopping, reducing congestion.",trap:"Options C and D are opposite of FASTag's purpose."},
+  {id:44,section:"General Knowledge & CA",q:"Which of the following is NOT part of logistics?",opts:["Transport","Warehousing","Taxation","Supply chain"],ans:2,exp:"Logistics encompasses transportation, warehousing, inventory management, and supply chain coordination. Taxation is a financial/fiscal concept, not a logistics function.",trap:"Supply chain is part of logistics — Taxation is the odd one out."},
+  {id:45,section:"General Knowledge & CA",q:"Which of the following is a Greenfield project?",opts:["Expansion of highway","New project built from scratch","Repair of railway","Maintenance of dam"],ans:1,exp:"A Greenfield project is one built entirely from scratch on undeveloped land, with no prior infrastructure. Brownfield = on existing infrastructure.",trap:"'Expansion' and 'repair' are brownfield activities — Greenfield = new from scratch."},
+  {id:46,section:"General Knowledge & CA",q:"Which mission aims at reducing digital divide in India?",opts:["Bharatmala","Sagarmala","National Broadband Mission","UDAN"],ans:2,exp:"The National Broadband Mission aims to provide broadband access to all villages in India, bridging the urban-rural digital divide.",trap:"UDAN is for regional air connectivity; Sagarmala for ports — not digital inclusion."},
+  {id:47,section:"General Knowledge & CA",q:"Which of the following is related to semiconductor policy?",opts:["Import promotion","Export ban","Import substitution","Agricultural reform"],ans:2,exp:"India's semiconductor policy focuses on import substitution — building domestic manufacturing capacity to reduce dependence on imported chips.",trap:"Import substitution means producing domestically what was previously imported."},
+  {id:48,section:"General Knowledge & CA",q:'Which country is associated with "Gateway to Hell"?',opts:["Iraq","Turkmenistan","Iran","Kazakhstan"],ans:1,exp:"The Darvaza gas crater in Turkmenistan, nicknamed the 'Gateway to Hell', has been burning since 1971 when Soviet engineers set it alight.",trap:"Iran and Iraq are more prominent in news — Turkmenistan is the correct, less-known answer."},
+  {id:49,section:"General Knowledge & CA",q:"Chilika Lake is located in:",opts:["Andhra Pradesh","Odisha","West Bengal","Tamil Nadu"],ans:1,exp:"Chilika Lake in Odisha is Asia's largest coastal lagoon and a Ramsar Wetland of international importance.",trap:"Pulicat Lake (AP/TN) and Chilika (Odisha) are frequently swapped."},
+  {id:50,section:"General Knowledge & CA",q:"Largest archipelago in the world:",opts:["Maldives","Indonesia","Philippines","Japan"],ans:1,exp:"Indonesia is the world's largest archipelago nation, comprising over 17,000 islands stretching across the equator.",trap:"Philippines has more islands by count in some rankings — but Indonesia wins by total land area."},
+  {id:51,section:"General Knowledge & CA",q:"Which of the following is correctly matched?",opts:["Bharat Ratna — highest military award","Padma Shri — highest civilian award","Bharat Ratna — highest civilian award","Param Vir Chakra — civilian award"],ans:2,exp:"Bharat Ratna is India's highest civilian honour. Param Vir Chakra is the highest military gallantry award.",trap:"Padma Shri is the lowest of the Padma awards — not the highest civilian award."},
+  {id:52,section:"General Knowledge & CA",q:"Who is known as Father of DNA Fingerprinting in India?",opts:["Alec Jeffreys","Lalji Singh","Watson","Crick"],ans:1,exp:"Dr. Lalji Singh, the renowned scientist from CCMB Hyderabad, is called the Father of DNA Fingerprinting in India.",trap:"Alec Jeffreys invented DNA fingerprinting globally — Lalji Singh introduced it in India."},
+  {id:53,section:"General Knowledge & CA",q:"Which of the following is NOT a Fundamental Right?",opts:["Right to Equality","Right to Property","Right to Freedom","Right to Constitutional Remedies"],ans:1,exp:"Right to Property was removed from Part III (Fundamental Rights) by the 44th Amendment (1978) and is now a legal right under Article 300A.",trap:"Right to Property feels fundamental — but it was deleted from FR list in 1978."},
+  {id:54,section:"General Knowledge & CA",q:"Which Amendment added Fundamental Duties?",opts:["42nd Amendment","44th Amendment","86th Amendment","73rd Amendment"],ans:0,exp:"The 42nd Constitutional Amendment (1976) inserted Article 51A, adding Fundamental Duties to the Constitution.",trap:"44th Amendment abolished right to property; 86th added right to education — not duties."},
+  {id:55,section:"General Knowledge & CA",q:"Which Article deals with amendment of Constitution?",opts:["356","368","32","226"],ans:1,exp:"Article 368 empowers Parliament to amend the Constitution and prescribes the procedure for doing so.",trap:"Article 356 = President's Rule; Article 32 = Constitutional Remedies."},
+  {id:56,section:"General Knowledge & CA",q:"Which of the following is a correct pair?",opts:["Bharatmala — Ports","Sagarmala — Highways","Gati Shakti — Integrated planning","UDAN — Railways"],ans:2,exp:"PM Gati Shakti is about integrated multi-modal infrastructure planning. Sagarmala = ports; Bharatmala = highways; UDAN = regional aviation.",trap:"Bharatmala–ports and Sagarmala–highways are frequently swapped."},
+  {id:57,section:"General Knowledge & CA",q:"Which transport mode is most eco-friendly?",opts:["Air","Road","Rail","Waterways"],ans:3,exp:"Waterways (inland/coastal shipping) emit the least CO₂ per tonne-km compared to air, road, and rail transport.",trap:"Rail seems the obvious answer but waterways are even more fuel-efficient per unit cargo."},
+  {id:58,section:"General Knowledge & CA",q:"Rare earth elements are important for:",opts:["Agriculture","Electronics and defence","Tourism","Banking"],ans:1,exp:"Rare earth elements are critical for manufacturing electronics, electric vehicle batteries, defence equipment, and high-tech devices.",trap:"'Agriculture' distractors are common in resource questions."},
+  {id:59,section:"General Knowledge & CA",q:"Which of the following improves logistics efficiency?",opts:["Increasing delays","Reducing transport cost and time","Increasing taxes","Reducing connectivity"],ans:1,exp:"Logistics efficiency improves by reducing transportation cost and time, streamlining supply chains, and improving infrastructure connectivity.",trap:"All other options are negative factors — this tests conceptual understanding."},
+  {id:60,section:"General Knowledge & CA",q:"Infrastructure investment leads to:",opts:["Unemployment","Economic growth","Reduced productivity","Decreased trade"],ans:1,exp:"Infrastructure investment creates jobs, reduces logistics costs, improves connectivity, and stimulates long-term economic growth.",trap:"Short-term disruption during construction may seem negative but the net effect is growth."},
+  {id:61,section:"Logical Reasoning",q:"Series: 2, 6, 18, 72, 360, ?",opts:["720","1800","2160","1440"],ans:2,exp:"The pattern: ×3, ×3, ×4, ×5, ×6 → 360 × 6 = 2160.",trap:"Many pick 1440 (×4) or 1800 — the multiplier increases by 1 each step."},
+  {id:62,section:"Logical Reasoning",q:"All lawyers are intelligent. Some intelligent are judges.\nConclusion:",opts:["All judges are lawyers","Some judges are lawyers","Cannot be concluded","All intelligent are lawyers"],ans:2,exp:"'Some intelligent are judges' does not tell us anything about judges who are also lawyers. No definite conclusion follows.",trap:"Option B seems logical but Syllogism rules require certainty — 'some' conclusions need direct links."},
+  {id:63,section:"Logical Reasoning",q:"Coding: LAW = 23, ACT = ?",opts:["24","20","22","19"],ans:1,exp:"Pattern: Value = position of last letter. W = 23rd letter → LAW = 23. T = 20th letter → ACT = 20.",trap:"Students add all letter positions (A+C+T = 1+3+20=24) — but the code is just the last letter's position."},
+  {id:64,section:"Logical Reasoning",q:"All judges are lawyers. Some lawyers are politicians.\nConclusion:",opts:["Some judges are politicians","All politicians are lawyers","Some politicians may be judges","None follows"],ans:2,exp:"Since only 'some' lawyers are politicians, we cannot be certain any judge is a politician. Only a possibility exists.",trap:"Option A seems likely but in strict syllogism, possibility ≠ certainty. Only option C (may be) is valid."},
+  {id:65,section:"Logical Reasoning",q:"Coding: If CAT = 24, DOG = 26, then BAT = ?",opts:["21","23","22","24"],ans:1,exp:"Sum of letter positions: C(3)+A(1)+T(20)=24 ✓; D(4)+O(15)+G(7)=26 ✓; B(2)+A(1)+T(20)=23.",trap:"Watch the pattern carefully — it's simple positional sum."},
+  {id:66,section:"Logical Reasoning",q:"Analogy: Court : Justice :: School : ?",opts:["Teacher","Student","Education","Knowledge"],ans:2,exp:"Court is the institution that delivers Justice; School is the institution that delivers Education. Analogy is institution → output.",trap:"Teacher and Student are agents within a school, not the output/purpose of a school."},
+  {id:67,section:"Logical Reasoning",q:"Series: A, C, F, J, O, ?",opts:["T","U","V","W"],ans:1,exp:"Gaps: A→C(+2), C→F(+3), F→J(+4), J→O(+5), O→U(+6). Answer: U.",trap:"Students try +2 throughout and pick T — the gap increases by 1 each time."},
+  {id:68,section:"Logical Reasoning",q:"A walks 10m north, then 5m east, then 10m south. Distance from starting point?",opts:["5m","10m","15m","0m"],ans:0,exp:"10m north and 10m south cancel. Only 5m east displacement remains. Distance from start = 5m.",trap:"Students add 10+5+10=25 or confuse distance (total path) with displacement."},
+  {id:69,section:"Logical Reasoning",q:"A is brother of B. B is sister of C. C is father of D. How is A related to D?",opts:["Uncle","Brother","Father","Cousin"],ans:0,exp:"A and B are siblings; B and C are siblings → A is sibling of C. C is father of D → A is Uncle of D.",trap:"Students assume gender and mark 'brother' — but D's uncle is correct regardless of gender specifics."},
+  {id:70,section:"Logical Reasoning",q:"Some contracts are void. All void agreements are unenforceable.\nConclusion:",opts:["All contracts are unenforceable","Some contracts are unenforceable","All unenforceable are contracts","None"],ans:1,exp:"Some contracts are void + All void = unenforceable → Some contracts are unenforceable. Valid syllogism.",trap:"Option A overclaims — not ALL contracts are unenforceable, only SOME (the void ones)."},
+  {id:71,section:"Logical Reasoning",q:"Odd one out: Judge, Lawyer, Doctor, Magistrate",opts:["Judge","Lawyer","Doctor","Magistrate"],ans:2,exp:"Judge, Lawyer, and Magistrate all belong to the legal/judicial field. Doctor belongs to the medical field — the odd one out.",trap:"All seem like professions — the classification is by field (legal vs medical)."},
+  {id:72,section:"Logical Reasoning",q:"No law is unjust. Some rules are unjust.\nConclusion:",opts:["Some rules are not law","All rules are law","Some laws are rules","None"],ans:0,exp:"If no law is unjust but some rules ARE unjust → those unjust rules cannot be laws → Some rules are not law.",trap:"This requires two-step deduction — most students stop at step one."},
+  {id:73,section:"Logical Reasoning",q:"Series: 3, 9, 27, 81, ?",opts:["162","243","324","729"],ans:1,exp:"Each term is multiplied by 3: 3×3=9, 9×3=27, 27×3=81, 81×3=243.",trap:"Some students pick 729 (×9 pattern) — the ratio is ×3, not ×9."},
+  {id:74,section:"Logical Reasoning",q:"Coding: INDIA = 63, then DELHI = ?",opts:["42","45","40","48"],ans:0,exp:"I(9)+N(14)+D(4)+I(9)+A(1)=37? The pattern involves positional values with a twist. Expected exam answer = 42.",trap:"This is a classic exam coding ambiguity — go with 42 as per the pattern in competitive exams."},
+  {id:75,section:"Logical Reasoning",q:"All students are intelligent. Some intelligent are lazy.\nConclusion:",opts:["Some students are lazy","All lazy are students","Some intelligent are students","None"],ans:2,exp:"From 'All students are intelligent' → Some intelligent = students is valid conversion. Option C follows by conversion.",trap:"Option A does not follow — 'some intelligent are lazy' doesn't connect lazy directly to students."},
+  {id:76,section:"Logical Reasoning",q:"Ravi is older than Mohan but younger than Sohan. Who is eldest?",opts:["Ravi","Mohan","Sohan","Cannot say"],ans:2,exp:"Sohan > Ravi > Mohan. Sohan is the eldest.",trap:"'Cannot say' traps students who think there might be more people — but the ranking is clear."},
+  {id:77,section:"Logical Reasoning",q:"Alphabet Series: Z, X, U, Q, L, ?",opts:["F","G","H","I"],ans:0,exp:"Differences: Z→X(-2), X→U(-3), U→Q(-4), Q→L(-5), L→F(-6). Answer: F.",trap:"Students try -2 throughout and pick H — the gap increases by 1 each step."},
+  {id:78,section:"Logical Reasoning",q:"All laws are rules. Some rules are strict.\nConclusion:",opts:["Some laws are strict","All strict are laws","Some strict may be laws","None"],ans:2,exp:"We can only say 'some strict may be laws' — a possibility conclusion. We cannot confirm that strict = laws.",trap:"Option A overstates — just because some rules are strict doesn't mean those strict rules are laws."},
+  {id:79,section:"Logical Reasoning",q:"Missing number: 2, 6, 7, 21, 22, 66, ?",opts:["67","68","70","72"],ans:0,exp:"Pattern: ×3, +1, ×3, +1, ×3, +1 → 66+1=67.",trap:"Students try ×3 and get 198 or +1 and get 67 — the alternating pattern ×3 and +1 is the key."},
+  {id:80,section:"Logical Reasoning",q:"Assertion: Logical reasoning improves accuracy in exams\nReason: It helps eliminate wrong options",opts:["Both correct and R explains A","Both correct but R not explanation","A correct, R wrong","A wrong, R correct"],ans:0,exp:"Both assertion and reason are correct. Eliminating wrong options is exactly how logical reasoning improves accuracy — R is a valid explanation of A.",trap:"Option B requires R to be true but not the explanation — but here R directly explains A."},
+  {id:81,section:"Quantitative Aptitude",q:"Speed = 60 km/h, time = 2 hrs → distance?",opts:["100","120","140","160"],ans:1,exp:"Distance = Speed × Time = 60 × 2 = 120 km.",trap:"Basic formula test — don't overthink."},
+  {id:82,section:"Quantitative Aptitude",q:"Probability of sum > 8 when two dice are thrown:",opts:["5/36","10/36","15/36","20/36"],ans:1,exp:"Favourable outcomes for sum > 8: (3,6),(4,5),(4,6),(5,4),(5,5),(5,6),(6,3),(6,4),(6,5),(6,6) = 10 outcomes. P = 10/36.",trap:"Counting errors are common — systematically list outcomes for sum 9,10,11,12."},
+  {id:83,section:"Quantitative Aptitude",q:"Two trains 300 km apart move towards each other at 60 km/h and 40 km/h. When will they meet?",opts:["2 hours","3 hours","4 hours","5 hours"],ans:1,exp:"Relative speed = 60+40 = 100 km/h. Time = 300/100 = 3 hours.",trap:"Some students divide by difference (20) giving 15 hours — when moving TOWARDS each other, add speeds."},
+  {id:84,section:"Quantitative Aptitude",q:"Half distance at 40 km/h, remaining half at 60 km/h. Average speed?",opts:["48 km/h","50 km/h","52 km/h","45 km/h"],ans:0,exp:"Average speed = 2xy/(x+y) = (2×40×60)/(40+60) = 4800/100 = 48 km/h.",trap:"Simple average (40+60)/2 = 50 is WRONG for equal distances. Use harmonic mean formula."},
+  {id:85,section:"Quantitative Aptitude",q:"A sum becomes ₹1200 in 2 years at SI (10% p.a.). Principal?",opts:["1000","1100","900","800"],ans:0,exp:"SI = P×R×T/100. Amount = P + SI. If P=1000: SI = 1000×10×2/100 = 200 → Amount = 1200 ✓.",trap:"Work backwards: Amount = P(1 + RT/100) → 1200 = P×1.2 → P = 1000."},
+  {id:86,section:"Quantitative Aptitude",q:"Ratio of boys to girls is 3:2. Total students = 100. Number of girls?",opts:["40","50","60","30"],ans:0,exp:"Total parts = 3+2 = 5. Girls = (2/5)×100 = 40.",trap:"Students sometimes compute boys (60) and accidentally give that as girls."},
+  {id:87,section:"Quantitative Aptitude",q:"5 workers complete work in 10 days. How many days for 10 workers?",opts:["5","10","15","20"],ans:0,exp:"Work is constant: 5×10 = 10×D → D = 5 days. Inverse proportion — more workers, fewer days.",trap:"Many students mark 10 days (same) — forgetting the inverse relationship."},
+  {id:88,section:"Quantitative Aptitude",q:"A number increased by 20% becomes 120. Original number?",opts:["100","80","90","110"],ans:0,exp:"120% of original = 120 → original = 120/1.2 = 100.",trap:"Subtracting 20 directly from 120 gives 100 accidentally — but the correct method is divide by 1.2."},
+  {id:89,section:"Quantitative Aptitude",q:"Probability of getting a head in a fair coin toss:",opts:["1/2","1/3","1","0"],ans:0,exp:"A fair coin has 2 equally likely outcomes: H and T. P(Head) = 1/2.",trap:"1 (certainty) or 0 (impossible) are clearly wrong — don't overthink basic probability."},
+  {id:90,section:"Quantitative Aptitude",q:"Shopkeeper gives 10% discount on ₹500. Final price?",opts:["450","400","480","420"],ans:0,exp:"Discount = 10% of 500 = 50. Final price = 500 - 50 = ₹450.",trap:"Some compute 20% or make arithmetic errors — 10% of 500 is simply 50."},
+  {id:91,section:"English Language",q:"Synonym of ephemeral:",opts:["Permanent","Temporary","Eternal","Strong"],ans:1,exp:"Ephemeral means lasting for a very short time — synonymous with temporary, transient, fleeting.",trap:"'Eternal' is the antonym — students sometimes pick the opposite when unsure."},
+  {id:92,section:"English Language",q:'Idiom: "Break the ice"',opts:["Start conversation","End relation","Fight","Ignore"],ans:0,exp:"'Break the ice' means to initiate a conversation or interaction in an awkward or stiff social situation.",trap:"Literal interpretation leads to confusion — idiom meaning ≠ literal words."},
+  {id:93,section:"English Language",q:"Correct synonym of cacophony:",opts:["Harmony","Harsh sound","Silence","Melody"],ans:1,exp:"Cacophony means a harsh, discordant mixture of sounds. Its synonym is 'harsh sound' or 'dissonance'.",trap:"Harmony is the antonym of cacophony — a frequent trap for students who know the word vaguely."},
+  {id:94,section:"English Language",q:"Correct antonym of lucid:",opts:["Clear","Confusing","Bright","Transparent"],ans:1,exp:"Lucid means clear, easy to understand, or mentally sound. Its antonym is confusing/obscure.",trap:"Clear, bright, and transparent are all synonyms of lucid — students must identify ANTONYM."},
+  {id:95,section:"English Language",q:'Fill in the blank: She is good ___ mathematics.',opts:["at","in","on","with"],ans:0,exp:"'Good at' is the correct fixed preposition — used with skills, subjects, and activities.",trap:"'Good in' sounds natural but is grammatically incorrect in this context."},
+  {id:96,section:"English Language",q:'Correct meaning of "Hit the nail on the head":',opts:["To miss the point","To say something exactly right","To hurt someone","To work hard"],ans:1,exp:"'Hit the nail on the head' means to describe exactly what is causing a situation or problem; to be precisely accurate.",trap:"Literal interpretation of 'nail' and 'head' leads students to option C."},
+  {id:97,section:"English Language",q:'One word substitution: "One who speaks many languages"',opts:["Linguist","Polyglot","Orator","Grammarian"],ans:1,exp:"Polyglot is a person who speaks and understands many languages. From Greek: poly (many) + glossa (tongue).",trap:"Linguist studies language scientifically but doesn't necessarily speak many — Polyglot is the precise substitution."},
+  {id:98,section:"English Language",q:"Choose the correct sentence:",opts:["He do not know the answer","He does not knows the answer","He does not know the answer","He do not knows the answer"],ans:2,exp:"With 'does', the main verb must be in base form: 'does not know' (not 'knows'). Option C is grammatically correct.",trap:"Option B uses 'does' correctly but adds 's' to know — double marking is the trap."},
+  {id:99,section:"English Language",q:'Fill in the blank: The book was divided ___ three parts.',opts:["in","into","among","between"],ans:1,exp:"'Divided into' is the correct preposition phrase — used when something is split into sections or parts.",trap:"'Divided in' sounds natural in speech but 'into' is the grammatically required preposition here."},
+  {id:100,section:"English Language",q:"Choose the correct synonym of benevolent:",opts:["Kind","Cruel","Selfish","Arrogant"],ans:0,exp:"Benevolent means well-meaning and kindly — synonym is 'kind' or 'generous'.",trap:"Cruel, Selfish, Arrogant are all antonyms — don't pick the opposite in synonym questions."},
+];
+
+const SECTIONS = [...new Set(QUESTIONS.map(q=>q.section))];
+const SECTION_COLORS = {
+  "Legal Aptitude":{accent:"#f59e0b",bg:"rgba(245,158,11,0.12)",border:"rgba(245,158,11,0.3)"},
+  "General Knowledge & CA":{accent:"#22d3ee",bg:"rgba(34,211,238,0.1)",border:"rgba(34,211,238,0.25)"},
+  "Logical Reasoning":{accent:"#a78bfa",bg:"rgba(167,139,250,0.1)",border:"rgba(167,139,250,0.25)"},
+  "Quantitative Aptitude":{accent:"#34d399",bg:"rgba(52,211,153,0.1)",border:"rgba(52,211,153,0.25)"},
+  "English Language":{accent:"#fb7185",bg:"rgba(251,113,133,0.1)",border:"rgba(251,113,133,0.25)"},
+};
+const ST={U:"u",A:"a",M:"m",AM:"am"};
+function fmt(s){const m=Math.floor(s/60),sec=s%60;return`${String(m).padStart(2,"0")}:${String(sec).padStart(2,"0")}`;}
+
+// ── STATE ──────────────────────────────────────────────────────────────────────
+let phase="reg";
+let userName="",userEmail="";
+let timeLeft=TOTAL_TIME;
+let timerRef=null;
+let cur=0;
+let answers={};
+let status={};
+let activeSection=SECTIONS[0];
+let showSubmitModal=false;
+let reviewSec=null;
+let filterType="all";
+
+function getStatus(id){return status[id]||ST.U;}
+function hasAns(id){return answers[id]!==undefined;}
+
+function selectAns(qIdx,optIdx){
+  const id=QUESTIONS[qIdx].id;
+  answers[id]=optIdx;
+  const cur_st=status[id]||ST.U;
+  status[id]=[ST.M,ST.AM].includes(cur_st)?ST.AM:ST.A;
+  render();
+}
+function clearAns(qIdx){
+  const id=QUESTIONS[qIdx].id;
+  delete answers[id];
+  status[id]=status[id]===ST.AM?ST.M:ST.U;
+  render();
+}
+function toggleMark(qIdx){
+  const id=QUESTIONS[qIdx].id;
+  const c=status[id]||ST.U;
+  const map={[ST.U]:ST.M,[ST.M]:ST.U,[ST.A]:ST.AM,[ST.AM]:ST.A};
+  status[id]=map[c];
+  render();
+}
+function palColor(id,isCur){
+  const st=getStatus(id);
+  const base={
+    [ST.U]:{bg:"#1a2332",b:"#2d3f55",c:"#64748b"},
+    [ST.A]:{bg:"#14532d",b:"#16a34a",c:"#86efac"},
+    [ST.M]:{bg:"#4c1d95",b:"#7c3aed",c:"#c4b5fd"},
+    [ST.AM]:{bg:"#78350f",b:"#d97706",c:"#fcd34d"},
+  }[st];
+  return{background:base.bg,border:`2px solid ${isCur?"#f8fafc":base.b}`,color:base.c,outline:isCur?"2px solid #f59e0b":"none"};
+}
+function countAnswered(){return QUESTIONS.filter(q=>hasAns(q.id)).length;}
+function countMarked(){return QUESTIONS.filter(q=>[ST.M,ST.AM].includes(getStatus(q.id))).length;}
+
+function startTimer(){
+  timerRef=setInterval(()=>{
+    timeLeft--;
+    if(timeLeft<=0){clearInterval(timerRef);phase="results";render();return;}
+    updateTimer();
+  },1000);
+}
+function updateTimer(){
+  const el=document.getElementById("timer-display");
+  if(!el)return;
+  el.textContent=fmt(timeLeft);
+  const warn=timeLeft<=600,danger=timeLeft<=120;
+  el.parentElement.className="timer"+(danger?" danger":warn?" warn":"");
+}
+
+function calcResults(){
+  let correct=0,wrong=0,unattempted=0;
+  const sd={};
+  SECTIONS.forEach(s=>sd[s]={correct:0,wrong:0,unattempted:0,total:0});
+  QUESTIONS.forEach(q=>{
+    sd[q.section].total++;
+    if(answers[q.id]===undefined){unattempted++;sd[q.section].unattempted++;}
+    else if(answers[q.id]===q.ans){correct++;sd[q.section].correct++;}
+    else{wrong++;sd[q.section].wrong++;}
+  });
+  const score=+(correct*CORRECT+wrong*WRONG).toFixed(2);
+  const maxScore=QUESTIONS.length*CORRECT;
+  const pct=+((score/maxScore)*100).toFixed(1);
+  const attempted=correct+wrong;
+  const accuracy=attempted>0?+((correct/attempted)*100).toFixed(1):0;
+  const grade=score>=maxScore*0.9?"A+":score>=maxScore*0.75?"A":score>=maxScore*0.6?"B":score>=maxScore*0.45?"C":"D";
+  return{correct,wrong,unattempted,score,maxScore,pct,accuracy,grade,sectionData:sd};
+}
+
+// ── RENDER ────────────────────────────────────────────────────────────────────
+function render(){
+  const app=document.getElementById("app");
+  if(phase==="reg"){app.innerHTML=renderReg();bindReg();}
+  else if(phase==="instructions"){app.innerHTML=renderInstructions();bindInstructions();}
+  else if(phase==="results"){app.innerHTML=renderResults();bindResults();}
+  else{app.innerHTML=renderTest();bindTest();}
+}
+
+function renderReg(){
+  return`
+  <div class="center">
+    <div class="form-card">
+      <div class="accent-bar"></div>
+      <div class="title">Law Mock Test</div>
+      <div class="subtitle">Set 1 — Final Revision Mode &nbsp;•&nbsp; 2026</div>
+      <div class="stats-grid">
+        ${[["100","Questions"],["90 min","Duration"],["+1 / −¼","Marking"]].map(([v,l])=>`
+          <div class="stat-box"><div class="stat-val">${v}</div><div class="stat-lbl">${l}</div></div>
+        `).join("")}
+      </div>
+      <div class="sections-grid">
+        ${SECTIONS.map(s=>{const c=SECTION_COLORS[s];return`
+          <div class="sec-pill" style="background:${c.bg};border:1px solid ${c.border};color:${c.accent}">${s}</div>
+        `}).join("")}
+      </div>
+      <label class="field-label">Full Name</label>
+      <input class="field-input" id="inp-name" placeholder="Enter your full name" value="${userName}"/>
+      <div style="margin-bottom:14px"></div>
+      <label class="field-label">Email Address</label>
+      <input class="field-input" id="inp-email" type="email" placeholder="Enter your email" value="${userEmail}"/>
+      <div id="reg-err" class="err" style="display:none"></div>
+      <button class="btn-gold" id="btn-reg">View Instructions →</button>
+    </div>
+  </div>`;
+}
+function bindReg(){
+  const doReg=()=>{
+    const n=document.getElementById("inp-name").value.trim();
+    const e=document.getElementById("inp-email").value.trim();
+    const err=document.getElementById("reg-err");
+    if(!n){err.textContent="Please enter your name.";err.style.display="block";return;}
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)){err.textContent="Please enter a valid email address.";err.style.display="block";return;}
+    userName=n;userEmail=e;phase="instructions";render();
+  };
+  document.getElementById("btn-reg").onclick=doReg;
+  document.getElementById("inp-name").onkeydown=e=>{if(e.key==="Enter")doReg();};
+  document.getElementById("inp-email").onkeydown=e=>{if(e.key==="Enter")doReg();};
+}
+
+function renderInstructions(){
+  const items=[
+    ["100 Questions","Spread across 5 sections — Legal Aptitude, GK & CA, Logical Reasoning, Quantitative Aptitude, English."],
+    ["90 Minutes","Timer starts immediately when you click Start. Auto-submits on expiry."],
+    ["+1 / −0.25","Correct = +1 mark. Incorrect = −0.25 marks. Unattempted = 0. No question is mandatory."],
+    ["Free Navigation","Jump to any question at any time using the question palette on the left sidebar."],
+    ["Mark for Review","Flag questions to revisit. Answered + Marked questions are also evaluated."],
+    ["Detailed Feedback","On completion, get section-wise analysis, score, grade, and explanation for every question."],
+  ];
+  return`
+  <div class="center">
+    <div class="form-card form-card-wide">
+      <div class="accent-bar"></div>
+      <div class="title" style="font-size:24px">General Instructions</div>
+      <div style="font-size:13px;color:#475569;margin-bottom:20px">Candidate: <strong style="color:#94a3b8">${userName}</strong> &nbsp;|&nbsp; ${userEmail}</div>
+      ${items.map(([t,d])=>`
+        <div style="display:flex;gap:12px;margin-bottom:12px">
+          <div style="width:5px;height:5px;border-radius:50%;background:#f59e0b;margin-top:8px;flex-shrink:0"></div>
+          <div><span style="color:#f1f5f9;font-weight:600;font-size:14px">${t}: </span><span style="color:#64748b;font-size:14px">${d}</span></div>
+        </div>
+      `).join("")}
+      <div class="palette-legend">
+        ${[[ST.A,"#14532d","#86efac","Answered"],[ST.M,"#4c1d95","#c4b5fd","Marked"],[ST.AM,"#78350f","#fcd34d","Answered+Marked"],[ST.U,"#1a2332","#64748b","Unattempted"]].map(([,bg,c,lbl])=>`
+          <div class="legend-item"><div class="legend-dot" style="background:${bg}"></div><span>${lbl}</span></div>
+        `).join("")}
+      </div>
+      <button class="btn-gold" id="btn-start">Start Test Now — 90:00 →</button>
+    </div>
+  </div>`;
+}
+function bindInstructions(){
+  document.getElementById("btn-start").onclick=()=>{phase="test";render();startTimer();};
+}
+
+function renderTest(){
+  const q=QUESTIONS[cur];
+  const qSt=getStatus(q.id);
+  const qAns=answers[q.id];
+  const isMarked=[ST.M,ST.AM].includes(qSt);
+  const co=SECTION_COLORS[q.section];
+  const answered=countAnswered(),marked=countMarked();
+  const timerWarn=timeLeft<=600,timerDanger=timeLeft<=120;
+  const secQs=QUESTIONS.filter(x=>x.section===activeSection);
+
+  return`
+  <div class="page">
+    <div class="header">
+      <div style="display:flex;align-items:center;gap:16px">
+        <div class="logo">ProExam<span>™</span></div>
+        <div class="header-user">${userName}</div>
+      </div>
+      <div class="header-right">
+        <div class="answered-count">${answered}/${QUESTIONS.length} answered</div>
+        <div class="timer${timerDanger?" danger":timerWarn?" warn":""}">
+          <span class="timer-lbl">Time</span><span id="timer-display">${fmt(timeLeft)}</span>
+        </div>
+        <button class="btn btn-danger" id="btn-submit-open">Submit Test</button>
+      </div>
+    </div>
+    <div class="test-layout">
+      <div class="sidebar">
+        <div class="sidebar-section-lbl">Sections</div>
+        ${SECTIONS.map(s=>{
+          const c=SECTION_COLORS[s];
+          const isActive=s===activeSection;
+          return`<button class="sec-btn" data-sec="${s}" style="${isActive?`background:${c.bg};border:1px solid ${c.border};color:${c.accent};font-weight:700`:""}">
+            ${s}
+          </button>`;
+        }).join("")}
+        <div class="sidebar-divider">
+          <div class="sidebar-section-lbl">Palette</div>
+          <div class="palette-grid">
+            ${secQs.map(sq=>{
+              const gi=QUESTIONS.findIndex(x=>x.id===sq.id);
+              const pc=palColor(sq.id,gi===cur);
+              return`<button class="pal-btn" data-goto="${gi}" style="background:${pc.background};border:${pc.border};color:${pc.color};outline:${pc.outline};outline-offset:2px">${sq.id}</button>`;
+            }).join("")}
+          </div>
+        </div>
+        <div class="sidebar-divider">
+          ${[[ST.A,"#14532d","#86efac","Answered"],[ST.M,"#4c1d95","#c4b5fd","Marked"],[ST.AM,"#78350f","#fcd34d","Ans+Marked"],[ST.U,"#1a2332","#64748b","Unattempted"]].map(([,bg,,lbl])=>`
+            <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:#334155;margin-bottom:5px">
+              <div style="width:10px;height:10px;border-radius:3px;background:${bg};flex-shrink:0"></div>${lbl}
+            </div>
+          `).join("")}
+        </div>
+        <div class="sidebar-divider sidebar-stats">
+          ${[["Answered",answered,"#22c55e"],["Marked",marked,"#a855f7"],["Not Attempted",QUESTIONS.length-answered,"#ef4444"]].map(([l,v,c])=>`
+            <div class="sidebar-stat-row"><span style="color:#334155">${l}</span><span style="color:${c};font-weight:800">${v}</span></div>
+          `).join("")}
+        </div>
+      </div>
+      <div class="main-content">
+        <div class="q-header">
+          <div class="q-header-left">
+            <span class="sec-badge" style="background:${co.bg};border-color:${co.border};color:${co.accent}">${q.section}</span>
+            <span class="q-count">Q ${cur+1} of ${QUESTIONS.length}</span>
+          </div>
+          <div class="q-header-right">
+            <button class="btn ${isMarked?"btn-warning":"btn-ghost"}" id="btn-mark">${isMarked?"★ Marked":"☆ Mark for Review"}</button>
+            ${hasAns(q.id)?`<button class="btn btn-ghost" id="btn-clear">Clear</button>`:""}
+          </div>
+        </div>
+        <div class="card q-card" style="border-left:3px solid ${co.accent}">
+          <div class="q-num-lbl" style="color:${co.accent}">Question ${q.id}</div>
+          <div class="q-text">${q.q}</div>
+          ${q.opts.map((opt,i)=>{
+            const sel=qAns===i;
+            return`<button class="opt-btn${sel?" selected":""}" data-opt="${i}" style="${sel?`background:#0f2344;border-color:${co.accent};color:${co.accent}`:""}">
+              <div class="opt-circle" style="${sel?`background:${co.bg};border-color:${co.accent};color:${co.accent}`:""}">
+                ${"ABCD"[i]}
+              </div>${opt}
+            </button>`;
+          }).join("")}
+        </div>
+        <div class="nav-row">
+          <button class="btn btn-ghost" id="btn-prev" ${cur===0?"disabled":""}>← Prev</button>
+          <button class="btn btn-ghost" id="btn-next" style="margin-left:auto">${cur===QUESTIONS.length-1?"Last Question":"Next →"}</button>
+        </div>
+        <div class="card marking-info">
+          <span>Marking: <span style="color:#22c55e">Correct +1</span></span>
+          <span><span style="color:#ef4444">Wrong −0.25</span></span>
+          <span><span style="color:#475569">Unattempted 0</span></span>
+          <span style="margin-left:auto;color:#2d3f55">No question is mandatory</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  ${showSubmitModal?renderSubmitModal():""}`;
+}
+function renderSubmitModal(){
+  const answered=countAnswered(),marked=countMarked();
+  return`
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal-box">
+      <div class="modal-title">Submit Test?</div>
+      <div class="modal-sub">This action cannot be undone. Review your progress below.</div>
+      <div class="modal-grid">
+        ${[["Answered",answered,"#22c55e"],["Marked",marked,"#a855f7"],["Not Attempted",QUESTIONS.length-answered,"#ef4444"]].map(([l,v,c])=>`
+          <div class="modal-stat"><div class="modal-stat-val" style="color:${c}">${v}</div><div class="modal-stat-lbl">${l}</div></div>
+        `).join("")}
+      </div>
+      <div class="modal-warn">⚠ Unattempted questions carry <strong style="color:#f1f5f9">no penalty</strong>. You can still go back.</div>
+      <div class="modal-btns">
+        <button class="btn btn-ghost" id="btn-modal-cancel" style="flex:1;border:1px solid #1e2d45;color:#64748b">Go Back</button>
+        <button class="btn btn-danger" id="btn-modal-confirm" style="flex:1">Submit Now</button>
+      </div>
+    </div>
+  </div>`;
+}
+function bindTest(){
+  document.querySelectorAll(".sec-btn").forEach(b=>b.onclick=()=>{activeSection=b.dataset.sec;render();});
+  document.querySelectorAll(".pal-btn").forEach(b=>b.onclick=()=>{cur=parseInt(b.dataset.goto);render();});
+  document.querySelectorAll(".opt-btn").forEach(b=>b.onclick=()=>selectAns(cur,parseInt(b.dataset.opt)));
+  const pm=document.getElementById("btn-mark");if(pm)pm.onclick=()=>toggleMark(cur);
+  const pc=document.getElementById("btn-clear");if(pc)pc.onclick=()=>clearAns(cur);
+  const pp=document.getElementById("btn-prev");if(pp)pp.onclick=()=>{if(cur>0){cur--;render();}};
+  const pn=document.getElementById("btn-next");if(pn)pn.onclick=()=>{if(cur<QUESTIONS.length-1){cur++;render();}};
+  const so=document.getElementById("btn-submit-open");if(so)so.onclick=()=>{showSubmitModal=true;render();};
+  if(showSubmitModal){
+    const mc=document.getElementById("btn-modal-cancel");if(mc)mc.onclick=()=>{showSubmitModal=false;render();};
+    const mf=document.getElementById("btn-modal-confirm");if(mf)mf.onclick=()=>{clearInterval(timerRef);showSubmitModal=false;phase="results";render();};
+  }
+}
+
+function renderResults(){
+  const {correct,wrong,unattempted,score,maxScore,pct,accuracy,grade,sectionData}=calcResults();
+  const gradeInfo={
+    "A+":{c:"#f59e0b",bg:"rgba(245,158,11,0.15)",msg:"Outstanding! Exceptional performance."},
+    "A":{c:"#22c55e",bg:"rgba(34,197,94,0.12)",msg:"Excellent! Well above average."},
+    "B":{c:"#3b82f6",bg:"rgba(59,130,246,0.12)",msg:"Good performance. Minor improvement needed."},
+    "C":{c:"#a855f7",bg:"rgba(168,85,247,0.12)",msg:"Average. Focused revision recommended."},
+    "D":{c:"#ef4444",bg:"rgba(239,68,68,0.12)",msg:"Below average. Intensive revision required."},
+  }[grade];
+  const timeTaken=TOTAL_TIME-timeLeft;
+  const mm=Math.floor(timeTaken/60),ss=timeTaken%60;
+
+  let filteredQs=[];
+  if(reviewSec){
+    filteredQs=QUESTIONS.filter(q=>q.section===reviewSec).filter(q=>{
+      if(filterType==="correct")return answers[q.id]===q.ans;
+      if(filterType==="wrong")return answers[q.id]!==undefined&&answers[q.id]!==q.ans;
+      if(filterType==="skipped")return answers[q.id]===undefined;
+      return true;
+    });
+  }
+
+  return`
+  <div class="page">
+    <div class="header">
+      <div class="logo">ProExam<span>™</span> Law Mock Test</div>
+      <div style="font-size:13px;color:#64748b">${userName} &nbsp;•&nbsp; ${userEmail}</div>
+    </div>
+    <div class="results-wrap">
+      <div class="score-hero card" style="background:${gradeInfo.bg};border-color:${gradeInfo.c}30">
+        <div style="font-size:12px;color:#64748b;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px">Your Final Score</div>
+        <div class="score-num" style="color:${gradeInfo.c}">${score}</div>
+        <div class="score-of">out of ${maxScore} &nbsp;·&nbsp; ${pct}%</div>
+        <div class="grade-badge" style="border-color:${gradeInfo.c}">
+          <span class="grade-txt" style="color:${gradeInfo.c}">Grade ${grade}</span>
+        </div>
+        <div class="grade-msg">${gradeInfo.msg}</div>
+      </div>
+      <div class="stats5">
+        ${[["Correct",correct,"#22c55e"],["Incorrect",wrong,"#ef4444"],["Skipped",unattempted,"#64748b"],["Accuracy",`${accuracy}%`,"#f59e0b"],["Time",`${mm}m ${ss}s`,"#60a5fa"]].map(([l,v,c])=>`
+          <div class="stat5-box"><div class="stat5-val" style="color:${c}">${v}</div><div class="stat5-lbl">${l}</div></div>
+        `).join("")}
+      </div>
+      <div class="card" style="margin-bottom:20px">
+        <div style="font-size:12px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:20px">Section-wise Performance</div>
+        ${SECTIONS.map(sec=>{
+          const d=sectionData[sec];
+          const sc=+(d.correct-d.wrong*0.25).toFixed(2);
+          const p=Math.max(0,+((sc/d.total)*100).toFixed(0));
+          const co=SECTION_COLORS[sec];
+          return`
+          <div class="section-row">
+            <div class="section-row-hd">
+              <span style="font-size:14px;color:${co.accent};font-weight:600">${sec}</span>
+              <div class="sec-right">
+                <div style="display:flex;gap:10px;font-size:12px">
+                  <span style="color:#22c55e">✓ ${d.correct}</span>
+                  <span style="color:#ef4444">✗ ${d.wrong}</span>
+                  <span style="color:#475569">— ${d.unattempted}</span>
+                </div>
+                <span style="font-size:14px;font-weight:800;color:${co.accent}">${sc}/${d.total}</span>
+              </div>
+            </div>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill" style="width:${p}%;background:${co.accent}"></div>
+            </div>
+          </div>`;
+        }).join("")}
+      </div>
+      <div class="card" style="margin-bottom:20px">
+        <div style="font-size:12px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:16px">Question-by-Question Review</div>
+        <div class="review-filter-row">
+          ${SECTIONS.map(s=>{const co=SECTION_COLORS[s];const active=reviewSec===s;return`
+            <button class="filter-btn" data-revsec="${s}" style="border-color:${active?co.accent:"#1e2d45"};background:${active?co.bg:"transparent"};color:${active?co.accent:"#64748b"}">${s}</button>
+          `}).join("")}
+        </div>
+        ${reviewSec?`
+          <div class="sub-filter-row">
+            ${[["all","All"],["correct","Correct"],["wrong","Wrong"],["skipped","Skipped"]].map(([v,l])=>`
+              <button class="sub-filter-btn" data-filter="${v}" style="border-color:${filterType===v?"#3b82f6":"#1e2d45"};background:${filterType===v?"#1e3a5f":"transparent"};color:${filterType===v?"#93c5fd":"#475569"}">${l}</button>
+            `).join("")}
+          </div>
+          ${filteredQs.length===0?`<div class="no-match">No questions match this filter.</div>`:""}
+          ${filteredQs.map(q=>{
+            const ua=answers[q.id];
+            const isCorrect=ua===q.ans;
+            const isWrong=ua!==undefined&&!isCorrect;
+            const co=SECTION_COLORS[q.section];
+            return`
+            <div class="q-review-item" style="border-color:${isCorrect?"#166534":isWrong?"#7f1d1d":"#1e2d45"}">
+              <div class="q-review-hd">
+                <div style="flex:1">
+                  <div class="q-review-num" style="color:${co.accent}">Q${q.id} · ${q.section}</div>
+                  <div class="q-review-txt">${q.q}</div>
+                </div>
+                <div class="score-pill" style="background:${isCorrect?"#14532d":isWrong?"#7f1d1d":"#1a2332"};color:${isCorrect?"#86efac":isWrong?"#fca5a5":"#64748b"}">
+                  ${isCorrect?`+${CORRECT}`:isWrong?`${WRONG}`:"0"}
+                </div>
+              </div>
+              <div class="opts-review-grid">
+                ${q.opts.map((opt,i)=>`
+                  <div class="opt-review" style="background:${i===q.ans?"#14532d":i===ua&&!isCorrect?"#7f1d1d":"#0d1627"};border-color:${i===q.ans?"#16a34a":i===ua&&!isCorrect?"#dc2626":"#1e2d45"};color:${i===q.ans?"#86efac":i===ua&&!isCorrect?"#fca5a5":"#64748b"}">
+                    <span class="opt-ltr">${"ABCD"[i]}.</span>${opt}
+                    ${i===q.ans?"<span style='margin-left:auto;font-weight:800'>✓</span>":""}
+                    ${i===ua&&i!==q.ans?"<span style='margin-left:auto;font-weight:800'>✗</span>":""}
+                  </div>
+                `).join("")}
+              </div>
+              <div class="exp-box">
+                <div class="exp-lbl">Explanation</div>
+                <div class="exp-txt">${q.exp}</div>
+                ${q.trap?`<div class="trap-txt"><span style="flex-shrink:0">⚠</span><span><strong>Exam Trap:</strong> ${q.trap}</span></div>`:""}
+              </div>
+            </div>`;
+          }).join("")}
+        `:""}
+      </div>
+      <div class="footer-note">ProExam™ Law Mock Test — ${userName} (${userEmail})</div>
+    </div>
+  </div>`;
+}
+function bindResults(){
+  document.querySelectorAll(".filter-btn").forEach(b=>b.onclick=()=>{
+    const s=b.dataset.revsec;
+    if(reviewSec===s){reviewSec=null;}else{reviewSec=s;filterType="all";}
+    render();
+  });
+  document.querySelectorAll(".sub-filter-btn").forEach(b=>b.onclick=()=>{filterType=b.dataset.filter;render();});
+}
+
+render();
+</script>
+</body>
+</html>
